@@ -17,7 +17,7 @@ namespace E_Mall_Api.Controllers
                 return Request.CreateResponse(HttpStatusCode.NotFound, new ResponseMessage("Kullanıcı Bulunamadı"));
             Kullanici k = new Kullanici()
             {
-                ID = (int)rd["ID"]
+                ID = rd["ID"].parse<int>()
             };
             rd.Close();
             return Request.CreateResponse(HttpStatusCode.OK,k);

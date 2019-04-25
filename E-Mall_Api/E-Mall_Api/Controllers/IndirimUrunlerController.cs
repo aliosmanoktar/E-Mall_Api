@@ -7,22 +7,22 @@ namespace E_Mall_Api.Controllers
 {
     public class IndirimUrunlerController : ApiController
     {
-        public List<IndirimUrun> get()
+        public List<Urun> get()
         {
-            List<IndirimUrun> items = new List<IndirimUrun>();
+            List<Urun> items = new List<Urun>();
             string sorgu = "select * from Urun where Fiyat<EskiFiyat";
             SqlDataReader rd = Database.Database.GetReader(sorgu);
             while (rd.Read())
             {
-                items.Add(new IndirimUrun() {
+                items.Add(new Urun() {
                     Adi=rd["Adi"].ToString(),
-                    EskiFiyat=float.Parse(rd["EskiFiyat"].ToString()),
-                    Fiyat=float.Parse(rd["Fiyat"].ToString()),
+                    EskiFiyat=rd["EskiFiyat"].ToString().parse<float>(),
+                    Fiyat=rd["Fiyat"].ToString().parse<float>(),
                     ID=(int)rd["ID"]
                 });
             }
             rd.Close();
-            foreach (IndirimUrun item in items)
+            foreach (Urun item in items)
             {
                 List<string> images = new List<string>();
                 sorgu = string.Format("select * from Resim where UrunID={0}", item.ID);

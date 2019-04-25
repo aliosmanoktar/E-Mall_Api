@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace E_Mall_Api.Controllers
 {
     public class HomeController : Controller
     {
+        public static string IP { get { return "http://10.52.177.111"; } }
         public ActionResult Index()
         {
             ViewBag.Title = "Home Pages";
-
             return View();
         }
     }

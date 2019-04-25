@@ -12,5 +12,12 @@ namespace E_Mall_Api.Models
         public float Fiyat { set; get; }
         public float EskiFiyat { set; get; }
         public List<string> Resimler { set; get; }
+        public int Oran
+        {
+            get
+            {
+                return  EskiFiyat==0 ? 0 : (int) (((EskiFiyat - Fiyat) * 100) / EskiFiyat);
+            }
+        }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using E_Mall_Api.Models;
-
-using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
@@ -8,27 +6,30 @@ using System.Web.Http;
 
 namespace E_Mall_Api.Controllers
 {
-    public class PopulerUrunlerController : ApiController
+    public class UrunlerController : ApiController
     {
-
-        public List<Urun> get()
+        public List<Urun> Get(int KategoriID)
         {
-            List<Urun> uruns = new List<Urun>();
-            string sorgu = string.Format("select * from Urun where ID in " +
-                "(select top 10 UrunID  from SatisDetay  where SatisID in " +
-                "(select ID from Satis where Zaman between '{1}' and '{0}' ) " +
-                "group by(UrunID) ORDER BY sum(Adet) DESC)", DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"), DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd"));
-            SqlDataReader rd =  Database.Database.GetReader(sorgu);
+            List<Urun> items = new List<Urun>();
+            string sorgu = "with ct(ID) as (" +
+                $" select ID from Kategori where UstID = {KategoriID}" +
+                " union all" +
+                " select Kategori.ID from Kategori" +
+                " inner join ct on Kategori.UstID = ct.ID)" +
+                " select * from Urun Join ct on Urun.KategoriID=ct.ID";
             Debug.WriteLine(sorgu);
+            SqlDataReader rd = Database.Database.GetReader(sorgu);
             while (rd.Read())
-                uruns.Add(new Urun()
+                items.Add(new Urun()
                 {
                     Adi = rd["Adi"].ToString(),
-                    Fiyat = rd["Fiyat"].parse<float>(),
+                    EskiFiyat = rd["EskiFiyat"].ToString().parse<float>(),
+                    Fiyat = rd["Fiyat"].ToString().parse<float>(),
                     ID = (int)rd["ID"]
                 });
+
             rd.Close();
-            foreach(Urun item in uruns)
+            foreach (Urun item in items)
             {
                 List<string> images = new List<string>();
                 sorgu = string.Format("select * from Resim where UrunID={0}", item.ID);
@@ -40,7 +41,7 @@ namespace E_Mall_Api.Controllers
                 rd.Close();
                 item.Resimler = images;
             }
-            return uruns;
+            return items;
         }
     }
 }

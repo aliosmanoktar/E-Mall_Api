@@ -23,11 +23,11 @@ namespace E_Mall_Api.Controllers
             {
                 items.Add(new Kategori()
                 {
-                    ID = (int)reader["ID"],
+                    ID = reader["ID"].parse<int>(),
                     Adi = reader["Adi"].ToString(),
                     Aciklama = reader["Aciklama"].ToString(),
-                    ResimID = (int)reader["ResimID"],
-                    UstID = (int)reader["UstID"]
+                    ResimID = reader["ResimID"].parse<int>(),
+                    UstID = reader["UstID"].parse<int>()
                 });
             }
             reader.Close();
