@@ -16,8 +16,8 @@ namespace E_Mall_Api.Controllers
             {
                 items.Add(new Urun() {
                     Adi=rd["Adi"].ToString(),
-                    EskiFiyat=rd["EskiFiyat"].ToString().parse<float>(),
-                    Fiyat=rd["Fiyat"].ToString().parse<float>(),
+                    EskiFiyat=rd["EskiFiyat"].parse<float>(),
+                    Fiyat=rd["Fiyat"].parse<float>(),
                     ID=(int)rd["ID"]
                 });
             }
