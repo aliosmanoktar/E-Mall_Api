@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -12,29 +13,18 @@ namespace E_Mall_Api.Controllers
     public class FavoriteController : ApiController
     {
         [HttpGet]
-        public List<Favorite> Get(int KullaiciID)
+        public object Get(int KullaniciID,int UrunID=-1)
         {
-            List<Favorite> items = new List<Favorite>();
-            string sorgu = $"select * from Favoriler where KullaniciID={KullaiciID}";
-            SqlDataReader rd = Database.Database.GetReader(sorgu);
-            while (rd.Read())
-            {
-                items.Add(new Favorite()
-                {
-                    ID=rd["ID"].parse<int>(),
-                    KullaniciID = KullaiciID,
-                    UrunID = rd["UrunID"].parse<int>()
-                });
-            }
-            rd.Close();
-            foreach (Favorite item in items)
-                item.Urun = GetUrun(item.UrunID);
-            return items;
+            if (UrunID != -1)
+                return Check(UrunID, KullaniciID);
+            else return GetFavoriteUrun(KullaniciID);
         }
 
         [HttpPost]
         public HttpResponseMessage Post(Favorite item)
         {
+            if (Check(item.UrunID, item.KullaniciID))
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, new ResponseMessage("Seçilen Ürün Favorilerde Mevcut"));
             string sorgu = $"insert into Favoriler(UrunID,KullaniciID) values({item.UrunID},{item.KullaniciID})";
             try
             {
@@ -63,6 +53,26 @@ namespace E_Mall_Api.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, new ResponseMessage("Favori nesnesi silinmesi sırasında hata oluştu"));
             }
+        }
+
+        private List<Favorite> GetFavoriteUrun(int KullaniciID)
+        {
+            List<Favorite> items = new List<Favorite>();
+            string sorgu = $"select * from Favoriler where KullaniciID={KullaniciID}";
+            SqlDataReader rd = Database.Database.GetReader(sorgu);
+            while (rd.Read())
+            {
+                items.Add(new Favorite()
+                {
+                    ID = rd["ID"].parse<int>(),
+                    KullaniciID = KullaniciID,
+                    UrunID = rd["UrunID"].parse<int>()
+                });
+            }
+            rd.Close();
+            foreach (Favorite item in items)
+                item.Urun = GetUrun(item.UrunID);
+            return items;
         }
 
         private void DeleteKullanici(int KullaniciID)
@@ -104,6 +114,13 @@ namespace E_Mall_Api.Controllers
             rd.Close();
             item.Resimler = images;
             return item;
+        }
+
+        private bool Check(int UrunID,int KullaniciID)
+        {
+            string sorgu = $"select count(ID) from Favoriler where KullaniciID ={KullaniciID} and UrunID={UrunID}";
+            int count = Database.Database.GetValue(sorgu).parse<int>();
+            return count != 0;
         }
     }
 }

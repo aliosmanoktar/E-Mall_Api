@@ -36,6 +36,8 @@ namespace E_Mall_Api.Controllers
         [HttpPost]
         public HttpResponseMessage Post(Sepet item)
         {
+            if (Check(item.UrunID, item.KullaniciID))
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, new ResponseMessage("Seçilen Ürün Sepette Mevcut"));
             string sorgu = $"insert into Sepet(UrunID,KullaniciID,Adet) values({item.UrunID},{item.KullaniciID},{item.Adet})";
             try
             {
@@ -77,7 +79,12 @@ namespace E_Mall_Api.Controllers
             string sorgu = $"Delete from Sepet where ID={SepetID}";
             Database.Database.DeleteValue(sorgu);
         }
-
+        private bool Check(int UrunID, int KullaniciID)
+        {
+            string sorgu = $"select count(ID) from Sepet where KullaniciID ={KullaniciID} and UrunID={UrunID}";
+            int count = Database.Database.GetValue(sorgu).parse<int>();
+            return count != 0;
+        }
         private Urun GetUrun(int UrunID)
         {
             string sorgu = $"select * from Urun where ID={UrunID}";

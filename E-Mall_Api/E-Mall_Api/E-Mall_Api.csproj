@@ -193,6 +193,10 @@
   <ItemGroup>
     <Content Include="app-assets\images\web\close.png" />
     <Content Include="app-assets\images\web\fotoyok.jpg" />
+    <Content Include="app-assets\images\kategori\636911206202468639.PNG" />
+    <Content Include="app-assets\images\kategori\636912352917786594.PNG" />
+    <Content Include="app-assets\images\kategori\636912369584381248.PNG" />
+    <Content Include="app-assets\images\kategori\636912370464212944.PNG" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -252,7 +256,6 @@
     <Content Include="Views\Kullanici\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app-assets\images\kategori\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
