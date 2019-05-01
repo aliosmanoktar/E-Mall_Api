@@ -23,6 +23,10 @@ namespace E_Mall_Api.Database
         {
             GetCommand(sorgu).ExecuteNonQuery();
         }
+        public static void DeleteValue(string sorgu)
+        {
+            InsertValue(sorgu);
+        }
         public static SqlDataReader GetReader(string sorgu)
         {
             return GetCommand(sorgu).ExecuteReader();
