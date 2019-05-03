@@ -335,3 +335,4 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/E-Mall_Api/E-Mall_Api/app-assets/images/kategori
