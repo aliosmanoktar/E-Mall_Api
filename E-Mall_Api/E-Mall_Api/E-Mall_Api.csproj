@@ -162,6 +162,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AdresController.cs" />
     <Compile Include="Controllers\BenzerUrunController.cs" />
     <Compile Include="Controllers\FavoriteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -172,12 +173,14 @@
     <Compile Include="Controllers\PopulerUrunlerController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\ResetPasswordController.cs" />
+    <Compile Include="Controllers\SatinAlController.cs" />
     <Compile Include="Controllers\SepetController.cs" />
     <Compile Include="Controllers\UrunlerController.cs" />
     <Compile Include="DataBase\Database.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Adres.cs" />
     <Compile Include="Models\Favorite.cs" />
     <Compile Include="Models\Kategori.cs" />
     <Compile Include="Models\Kullanici.cs" />
@@ -187,6 +190,8 @@
     <Compile Include="Models\ResetPassword.cs" />
     <Compile Include="Models\ResetPasswordPost.cs" />
     <Compile Include="Models\ResponseMessage.cs" />
+    <Compile Include="Models\Satis.cs" />
+    <Compile Include="Models\SatisItem.cs" />
     <Compile Include="Models\Sepet.cs" />
     <Compile Include="Models\Urun.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
