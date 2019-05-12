@@ -13,6 +13,6 @@ namespace E_Mall_Api.Models
         public string SatisDurum { set; get; }
         public string KargoKod { set; get; }
         public Adres Adres { set; get; }
-        public List<SatisItem> Items { set; get; }
+        public List<Sepet> Items { set; get; }
     }
 }
