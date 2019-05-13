@@ -173,7 +173,7 @@
     <Compile Include="Controllers\PopulerUrunlerController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\ResetPasswordController.cs" />
-    <Compile Include="Controllers\SatinAlController.cs" />
+    <Compile Include="Controllers\SiparisController.cs" />
     <Compile Include="Controllers\SepetController.cs" />
     <Compile Include="Controllers\UrunlerController.cs" />
     <Compile Include="DataBase\Database.cs" />

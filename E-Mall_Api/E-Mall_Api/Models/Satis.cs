@@ -12,7 +12,8 @@ namespace E_Mall_Api.Models
         public int AdresID { set; get; }
         public string SatisDurum { set; get; }
         public string KargoKod { set; get; }
+        public string Zaman { set; get; }
         public Adres Adres { set; get; }
-        public List<Sepet> Items { set; get; }
+        public List<Sepet> Items { set; get; } = new List<Sepet>();
     }
 }
