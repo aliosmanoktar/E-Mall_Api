@@ -8,6 +8,7 @@ namespace E_Mall_Api.Models
     public class Register
     {
         //AD Soyad Eposta Şifre Doğum Günü Cinsiyet
+        public int ID { set; get; }
         public string Telefon { set; get; }
         public string KullaniciAdi { set; get; }
         public string Email { set; get; }
